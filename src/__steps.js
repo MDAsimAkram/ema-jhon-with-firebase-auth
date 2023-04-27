@@ -14,4 +14,16 @@
  * 
  * 6. create signup and Login route...main.jsx er mosshe kichuta kore rekhechilam..aro 2ta korte hobe..
  * 
+ * ##############################################################
+ * 
+ * 1. Create a context provider file...AuthProvider.jsx banalam...
+ * 
+ * 2. create a context and set provider
+ * 
+ * 3. set the {children} props...ata amra onk jaigai props akare pathiye use korbo
+ * 
+ * 4. set context value
+ * 
+ * 5. set the provider
+ * 
  * */ 
