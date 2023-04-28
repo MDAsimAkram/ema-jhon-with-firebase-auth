@@ -1,15 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import "./Login.css"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 
 const Login = () => {
+
+    // password ta show korte bolle show hobe onno time a false thakbe mane dekhabe na..
+    const [show, setShow] = useState(false);
 
     // signIn tak nibo..
     const { signIn } = useContext(AuthContext);
 
     // login korar por ei login page thekei amk niye jabe j page a chilam oi page a tai link connect korbo
     const navigate = useNavigate();
+
+    // current location ta dekhte hobe kothai achi ami
+    const location = useLocation();
+    console.log(location);
+
+    // location a jawar por state thakle state a jabe..than from a jabe tarpor pathname a jabe..
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = event => {
         event.preventDefault();
@@ -29,7 +39,7 @@ const Login = () => {
                 // email password thik thakle form ta clear hoye jabe
                 form.reset();
                 // login korar por user ta peyechi akhn user tak j page a chilo oi page a pathabo link diye.home a pathiye debo
-                navigate('/')
+                navigate(from, { replace: true })
 
             })
             .catch(error => {
@@ -55,7 +65,16 @@ const Login = () => {
                 {/* for password */}
                 <div className='form-control'>
                     <label htmlFor="password"> Password</label>
-                    <input type="password" name="password" id="" required />
+
+                    {/* mane password show te click korle show hobe text er moto...nahole hide thakbe  */}
+                    <input type={show ? "text" : "password"} name="password" id="" required />
+
+                    {/* akta sorto debo password show thakle hide hobe ar hide thakle show hobe */}
+                    <p onClick={() => setShow(!show)} > <small>
+                        {
+                            show ? <span> Hide Password </span> : <span> Show Password</span>
+                        }
+                    </small></p>
 
                 </div>
                 {/* akta button nibo */}

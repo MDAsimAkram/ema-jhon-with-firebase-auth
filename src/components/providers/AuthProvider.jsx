@@ -12,15 +12,23 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     // akta loader set kore debo
-    const [loading , setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     // Signup er jonno akhn email password Authentication er kaj korbo
     const createUser = (email, password) => {
+
+        // user toyri hocche so loading ta true hobe..
+        setLoading(true);
+
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     // signIn /login er jonno akhn email password Authentication er kaj korbo
     const signIn = (email, password) => {
+
+        // user signin hocche tokhon o loading ta true hobe..ata na korle loading false hoye user tak pabe na
+        setLoading(true);
+
         return signInWithEmailAndPassword(auth, email, password);
     }
 
@@ -32,21 +40,21 @@ const AuthProvider = ({ children }) => {
     // to get the current user is by setting an observer on the Auth object..state ta upore set hoyei ache..
     // kaj ses a observe ta off korte ..const unsubscribe = ..eita dilam ar line--35-37 korlam
     useEffect(() => {
-       const unsubscribe = onAuthStateChanged(auth, currentUser => {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
 
             // state ta change hoye jabe tokhn loding ta false..mane state ta update kore felo
             setLoading(false);
         });
         // stop observing while unmounting...
-        return () =>{
+        return () => {
             return unsubscribe();
         }
     }, [])
 
     const authInfo = {
         user,
-        loading ,
+        loading,
         createUser,
         signIn,
         logOut
